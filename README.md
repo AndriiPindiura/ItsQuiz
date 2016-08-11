@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## React Starter Kit — "[isomorphic](http://nerds.airbnb.com/isomorphic-javascript-future-web-apps/)" web app boilerplate
 
 > [React Starter Kit](https://www.reactstarterkit.com) is an opinionated
@@ -219,3 +220,6 @@ file. The documentation to the project is licensed under the
 
 ---
 Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya)) and [contributors](https://github.com/kriasoft/react-starter-kit/graphs/contributors)
+=======
+# ItsQuiz
+>>>>>>> eb9cbc69bdb0df9bac74381aa1bb4ac6b4097d7d
