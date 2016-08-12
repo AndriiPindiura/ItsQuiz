@@ -16,12 +16,20 @@ import appStyle from './main.scss';
 
 
 import Movies from './Movies';
+import ConfirmDelete from './ConfirmDelete';
 
 
 class ItsQuiz extends Component {
   render() {
     return (
-      <Movies caption="TEST" movies={this.props.movies.movies} actions={this.props.moviesActions} />
+      <div>
+        <Movies movies={this.props.movies.movies} actions={this.props.moviesActions} />
+        <ConfirmDelete
+          confirm={this.props.movies.confirmDelete}
+          id={this.props.movies.movieToRemove}
+          actions={this.props.moviesActions}
+        />
+      </div>
     );
   }
 }

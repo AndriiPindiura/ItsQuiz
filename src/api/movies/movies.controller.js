@@ -24,8 +24,8 @@ export function getMovies(req, res) {
 
 export function createMovie(req, res) {
   Movie.create({
-    title: 'test',
-    releaseYear: Date.now(),
+    title: 'asdfw',
+    releaseYear: (new Date()).getFullYear(),
     videoType: 'DVD',
     // actors: ['actor1', 'actor2'],
     actors: [
