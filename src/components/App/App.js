@@ -12,6 +12,10 @@ import { Provider } from 'react-redux';
 import emptyFunction from 'fbjs/lib/emptyFunction';
 import s from './App.css';
 import ItsQuiz from '../ItsQuiz';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+injectTapEventPlugin();
+
 // import Header from '../Header';
 // import Feedback from '../Feedback';
 // import Footer from '../Footer';

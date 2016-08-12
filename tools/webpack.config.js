@@ -91,10 +91,12 @@ const config = {
       {
         test: /\.scss$/,
         loaders: [
+          // 'style-loader',
           'isomorphic-style-loader',
-          `css-loader?${JSON.stringify({ sourceMap: DEBUG, minimize: !DEBUG })}`,
+          `css-loader?${JSON.stringify({ sourceMap: DEBUG, minimize: !DEBUG })}
+            &modules&importLoaders=2&localIdentName=[local]___[hash:base64:5]`,
           'postcss-loader?pack=sass',
-          'sass-loader',
+          'sass-loader?outputStyle=expanded',
         ],
       },
       {

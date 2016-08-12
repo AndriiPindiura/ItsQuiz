@@ -14,7 +14,9 @@ function Html({ title, description, style, script, children, state }) {
         <style id="css" dangerouslySetInnerHTML={{ __html: style }} />
       </head>
       <body>
-        <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
+        <div id="app">
+          <div dangerouslySetInnerHTML={{ __html: children }} />
+        </div>
         {script && (
           <script
             id="source"

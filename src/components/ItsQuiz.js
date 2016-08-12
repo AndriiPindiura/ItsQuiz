@@ -11,14 +11,18 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as moviesActions from '../actions/movies';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import appStyle from './main.scss';
+
 
 import Movies from './Movies';
+
 
 class ItsQuiz extends Component {
   render() {
     return (
-			<Movies caption="TEST" actions={this.props.moviesActions} />
-		);
+      <Movies caption="TEST" movies={this.props.movies.movies} actions={this.props.moviesActions} />
+    );
   }
 }
 
@@ -47,4 +51,4 @@ function mapDispatchToProps(dispatch) {
     // testActions: bindActionCreators(testActions, dispatch)
   };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(ItsQuiz);
+export default withStyles(appStyle)(connect(mapStateToProps, mapDispatchToProps)(ItsQuiz));

@@ -16,6 +16,7 @@ import login from './login';
 import register from './register';
 import content from './content';
 import error from './error';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 export default {
 
@@ -37,7 +38,9 @@ export default {
     const component = await next();
     if (component === undefined) return component;
     return render(
-      <App context={context}>{component}</App>
+      <MuiThemeProvider>
+        <App context={context}>{component}</App>
+      </MuiThemeProvider>
     );
   },
 

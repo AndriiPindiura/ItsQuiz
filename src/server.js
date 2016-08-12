@@ -17,6 +17,8 @@ import expressGraphQL from 'express-graphql';
 import jwt from 'jsonwebtoken';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
+import mongoose from 'mongoose';
+mongoose.Promise = require('bluebird');
 import Html from './components/Html';
 import { ErrorPage } from './routes/error/ErrorPage';
 import errorPageStyle from './routes/error/ErrorPage.css';
@@ -31,8 +33,14 @@ import assets from './assets'; // eslint-disable-line import/no-unresolved
 import configureStore from './store/configureStore';
 import { setRuntimeVariable } from './actions/runtime';
 import { port, auth } from './config';
+import movies from './api/movies';
 
 const app = express();
+
+mongoose.connect('mongodb://localhost/itsquiz', { db: { safe: true } });
+mongoose.connection.on('error', (e) => {
+  console.log(e);
+});
 
 //
 // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
@@ -52,25 +60,25 @@ app.use(bodyParser.json());
 //
 // Authentication
 // -----------------------------------------------------------------------------
-app.use(expressJwt({
-  secret: auth.jwt.secret,
-  credentialsRequired: false,
-  getToken: req => req.cookies.id_token,
-}));
-app.use(passport.initialize());
+// app.use(expressJwt({
+//   secret: auth.jwt.secret,
+//   credentialsRequired: false,
+//   getToken: req => req.cookies.id_token,
+// }));
+// app.use(passport.initialize());
 
-app.get('/login/facebook',
-  passport.authenticate('facebook', { scope: ['email', 'user_location'], session: false })
-);
-app.get('/login/facebook/return',
-  passport.authenticate('facebook', { failureRedirect: '/login', session: false }),
-  (req, res) => {
-    const expiresIn = 60 * 60 * 24 * 180; // 180 days
-    const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
-    res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
-    res.redirect('/');
-  }
-);
+// app.get('/login/facebook',
+//   passport.authenticate('facebook', { scope: ['email', 'user_location'], session: false })
+// );
+// app.get('/login/facebook/return',
+//   passport.authenticate('facebook', { failureRedirect: '/login', session: false }),
+//   (req, res) => {
+//     const expiresIn = 60 * 60 * 24 * 180; // 180 days
+//     const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
+//     res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
+//     res.redirect('/');
+//   }
+// );
 
 //
 // Register API middleware
@@ -81,6 +89,11 @@ app.use('/graphql', expressGraphQL(req => ({
   rootValue: { request: req },
   pretty: process.env.NODE_ENV !== 'production',
 })));
+
+//
+// It's Quiz API
+// -----------------------------------------------------------------------------
+app.use('/movies', movies);
 
 //
 // Register server-side rendering middleware
