@@ -1,5 +1,3 @@
-'use strict';
-
 import { Router } from 'express';
 import * as controller from './movies.controller';
 
@@ -14,5 +12,6 @@ router.get('/', (req, res) => {
 router.delete('/movie/:id', controller.removeMovie);
 router.get('/movie/:id', controller.showMovie);
 router.get('/list', controller.getMovies);
-router.get('/add', controller.createMovie);
+router.post('/add', controller.createMovie);
+router.post('/import', controller.importMovies);
 export default router;

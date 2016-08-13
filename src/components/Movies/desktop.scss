@@ -68,13 +68,18 @@
               font-size: 14px;
               color: $tableAdditionalColor;
             }
-
-            button {
-              float: right;
-              border: 0;
-              background: $transparent;
-              outline: 0;
-              cursor: pointer;
+            
+            div {
+              display: flex;
+              justify-content: space-between;
+              
+              button {
+                float: right;
+                border: 0;
+                background: $transparent;
+                outline: 0;
+                cursor: pointer;
+              }
             }
           }
         }

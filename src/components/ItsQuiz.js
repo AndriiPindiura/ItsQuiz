@@ -17,6 +17,7 @@ import appStyle from './main.scss';
 
 import Movies from './Movies';
 import ConfirmDelete from './ConfirmDelete';
+import CreateMovie from './CreateMovie';
 
 
 class ItsQuiz extends Component {
@@ -29,6 +30,7 @@ class ItsQuiz extends Component {
           id={this.props.movies.movieToRemove}
           actions={this.props.moviesActions}
         />
+        <CreateMovie actions={this.props.moviesActions} movies={this.props.movies} />
       </div>
     );
   }

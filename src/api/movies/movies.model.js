@@ -1,14 +1,9 @@
-'use strict';
-
 import mongoose, { Schema } from 'mongoose';
 const MovieSchema = new Schema({
   title: String,
-  releaseYear: Date,
+  releaseYear: String,
   videoType: String,
-  actors: [{
-    firstName: String,
-    lastName: String,
-  }],
+  actors: Array,
 });
 
 export default mongoose.model('Movie', MovieSchema);
