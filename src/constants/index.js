@@ -9,3 +9,4 @@ export const SET_TYPE = 'SET_TYPE';
 export const SET_YEAR = 'SET_YEAR';
 export const ADD_ACTOR = 'ADD_ACTOR';
 export const SET_ACTORS = 'SET_ACTORS';
+export const FILTER_MOVIES = 'FILTER_MOVIES';

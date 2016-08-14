@@ -8,6 +8,7 @@ import {
   SET_TYPE,
   SET_YEAR,
   ADD_ACTOR,
+  FILTER_MOVIES,
 } from '../constants';
 
 const initialState = {
@@ -31,8 +32,9 @@ export default function runtime(state = initialState, action) {
       });
     }
     case SET_MOVIES: {
-      const sortedMovies = action.payload.sort((a, b) => a.title > b.title);
-      return Object.assign({}, state, { movies: sortedMovies });
+      const movies = [...action.payload]
+        .sort((a, b) => a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1);
+      return Object.assign({}, state, { movies, rawMovies: movies });
     }
     case CONFIRM_REMOVE: {
       return Object.assign({}, state, {
@@ -68,6 +70,13 @@ export default function runtime(state = initialState, action) {
       return Object.assign({}, state, {
         movie: Object.assign({}, state.movie, { actors }),
       });
+    }
+    case FILTER_MOVIES: {
+      const movies = [...state.rawMovies]
+        .filter(movie => movie.title.toLowerCase().includes(action.payload.toLowerCase())
+        || movie.actors
+          .filter(actor => actor.toLowerCase().includes(action.payload.toLowerCase())).length > 0);
+      return Object.assign({}, state, { movies, searchKeyWord: action.payload });
     }
     default:
       return state;

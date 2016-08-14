@@ -8,6 +8,7 @@ import {
   SET_TYPE,
   SET_YEAR,
   ADD_ACTOR,
+  FILTER_MOVIES,
 } from '../constants';
 
 export function setMoviesToStore(movies) {
@@ -191,3 +192,9 @@ export function addMovie(movie) {
   };
 }
 
+export function filterMovies(keyWord) {
+  return {
+    type: FILTER_MOVIES,
+    payload: keyWord,
+  };
+}

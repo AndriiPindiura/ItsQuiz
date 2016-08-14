@@ -11,8 +11,15 @@ import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowCol
 // require('styles//Movies.css');
 
 class MoviesComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.filterMovies = this.filterMovies.bind(this);
+  }
   componentDidMount() {
     this.props.actions.getMovies();
+  }
+  filterMovies(input) {
+    this.props.actions.filterMovies(input.target.value);
   }
   render() {
     const addMovieStyle = {
@@ -34,7 +41,11 @@ class MoviesComponent extends React.Component {
           title={
             <header>
               <h2>MyMovies</h2>
-              <input placeholder="Ищите фильм по названию или актеру" />
+              <input
+                placeholder="Ищите фильм по названию или актеру"
+                value={this.props.movies.searchKeyWord}
+                onChange={this.filterMovies}
+              />
             </header>}
           iconElementRight={
             <FloatingActionButton
