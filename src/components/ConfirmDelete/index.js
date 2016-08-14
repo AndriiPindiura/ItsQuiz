@@ -1,6 +1,4 @@
 import React, { PropTypes } from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import css from './main.scss';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 
@@ -51,4 +49,4 @@ ConfirmDeleteComponent.propTypes = {
 };
 // ConfirmDeleteComponent.defaultProps = {};
 
-export default withStyles(css)(ConfirmDeleteComponent);
+export default ConfirmDeleteComponent;

@@ -60,6 +60,7 @@ class MoviesComponent extends React.Component {
         />
         <Table
           wrapperStyle={wrapStyle}
+          onRowSelection={(e) => { console.log(this.props.movies[e]); }}
         >
           <TableHeader
             displaySelectAll={false}
@@ -79,7 +80,7 @@ class MoviesComponent extends React.Component {
           >
           {this.props.movies && this.props.movies.length > 0
             ? this.props.movies.map((row, index) => (
-              <TableRow key={index} selected={row.selected}>
+              <TableRow key={index} value={row._id}>
                 <TableRowColumn style={{ width: '10%' }}><span>#{row._id}</span></TableRowColumn>
                 <TableRowColumn>
                   <h3>{row.title}</h3>

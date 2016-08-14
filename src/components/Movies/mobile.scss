@@ -1,3 +1,89 @@
 & {
+  min-height: 100vh;
+  background: $backgroundColor;
 
+  >div {
+    display: flex;
+
+    header {
+      display: flex;
+      align-items: center;
+
+      h2 {
+        font-family: 'Roboto-Regular';
+        font-size: 14px;
+      }
+
+      input {
+        min-width: px(1000);
+        height: 30px;
+        margin: 0 0 0 48px;
+        padding: 0 0 0 21px;
+        border: 0;
+        border-bottom: 1px solid $inputBorderColor;
+        background: $appBarBackgroundColor url('../../theme/images/Movies/ic_search.svg') no-repeat 2px 9px;
+        color: $inputFontColor;
+        font-family: Roboto-Regular;
+        font-size: 12px;
+        // opacity: 0.5;
+      }
+
+    }
+
+    >div {
+      // height: 64px;
+      display: flex;
+      align-items: center;
+
+    }
+
+    table {
+
+      thead {
+        font-family: Roboto-Regular;
+        font-size: 12px;
+        color: $tableHeaderCaptionColor;
+        
+        th {
+          text-align: center;
+          vertical-align: middle;
+        }
+
+      }
+
+      tbody {
+        tr {
+          td {
+            vertical-align: middle;
+
+            h3 {
+              margin: 0px auto 10px;
+              font-family: Roboto-Regular;
+              font-size: 14px;
+              color: $tableHeaderCaptionColor;
+            }
+
+            span {
+              font-family: Roboto-Light;
+              font-size: 14px;
+              color: $tableAdditionalColor;
+            }
+            
+            div {
+              display: flex;
+              justify-content: space-between;
+              
+              button {
+                float: right;
+                border: 0;
+                background: $transparent;
+                outline: 0;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
