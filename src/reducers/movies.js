@@ -3,6 +3,7 @@ import {
   SET_MOVIES,
   CONFIRM_REMOVE,
   CREATE_DIALOG,
+  SET_SELECTED_MOVIE,
   SET_YEARS,
   SET_TITLE,
   SET_TYPE,
@@ -16,8 +17,10 @@ const initialState = {
   confirmDelete: false,
   movieToRemove: '-1',
   createMovieDialog: false,
+  movieInfo: false,
   years: [],
   movie: {},
+  selectedMovie: {},
   videoTypes: ['DVD', 'VHS', 'Blu-Ray'],
 };
 
@@ -27,7 +30,9 @@ export default function runtime(state = initialState, action) {
       return Object.assign({}, state, {
         confirmDelete: false,
         movieToRemove: '-1',
+        selectedMovie: {},
         createMovieDialog: false,
+        movieInfo: false,
         movie: {},
       });
     }
@@ -35,6 +40,12 @@ export default function runtime(state = initialState, action) {
       const movies = [...action.payload]
         .sort((a, b) => a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1);
       return Object.assign({}, state, { movies, rawMovies: movies });
+    }
+    case SET_SELECTED_MOVIE: {
+      return Object.assign({}, state, {
+        selectedMovie: action.payload ? action.payload : {},
+        movieInfo: !(action.payload === null),
+      });
     }
     case CONFIRM_REMOVE: {
       return Object.assign({}, state, {

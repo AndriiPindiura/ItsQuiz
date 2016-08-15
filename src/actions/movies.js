@@ -3,6 +3,7 @@ import {
   SET_MOVIES,
   CONFIRM_REMOVE,
   CREATE_DIALOG,
+  SET_SELECTED_MOVIE,
   SET_YEARS,
   SET_TITLE,
   SET_TYPE,
@@ -151,11 +152,10 @@ export function createMovieDialog() {
   };
 }
 
-export function sortMovies(movies, key, direction) {
-  return (dispatch) => {
-    const sortedMovies = [...movies];
-    sortedMovies.sort((a, b) => (a[key] > b[key]) * direction);
-    dispatch(setMoviesToStore(sortedMovies));
+export function selectMovie(movie) {
+  return {
+    type: SET_SELECTED_MOVIE,
+    payload: movie,
   };
 }
 

@@ -18,19 +18,25 @@ import appStyle from './main.scss';
 import Movies from './Movies';
 import ConfirmDelete from './ConfirmDelete';
 import CreateMovie from './CreateMovie';
-
+import MovieInfo from './MovieInfo';
 
 class ItsQuiz extends Component {
   render() {
     return (
       <div>
-        <Movies movies={this.props.movies.movies} actions={this.props.moviesActions} />
+        <Movies movies={this.props.movies} actions={this.props.moviesActions} />
+        {/* */}
         <ConfirmDelete
           confirm={this.props.movies.confirmDelete}
           id={this.props.movies.movieToRemove}
           actions={this.props.moviesActions}
         />
         <CreateMovie actions={this.props.moviesActions} movies={this.props.movies} />
+        <MovieInfo
+          actions={this.props.moviesActions}
+          movieInfo={this.props.movies.movieInfo}
+          movie={this.props.movies.selectedMovie}
+        />
       </div>
     );
   }

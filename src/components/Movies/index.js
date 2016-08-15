@@ -14,12 +14,21 @@ class MoviesComponent extends React.Component {
   constructor(props) {
     super(props);
     this.filterMovies = this.filterMovies.bind(this);
+    this.movieSelect = this.movieSelect.bind(this);
   }
   componentDidMount() {
     this.props.actions.getMovies();
   }
   filterMovies(input) {
     this.props.actions.filterMovies(input.target.value);
+  }
+  removeMovie(id, e) {
+    e.stopPropagation();
+    // e.nativeEvent.stopImmediatePropagation();
+    this.props.actions.confirmRemove(id);
+  }
+  movieSelect(index) {
+    this.props.actions.selectMovie(this.props.movies.movies[index]);
   }
   render() {
     const addMovieStyle = {
@@ -60,7 +69,7 @@ class MoviesComponent extends React.Component {
         />
         <Table
           wrapperStyle={wrapStyle}
-          onRowSelection={(e) => { console.log(this.props.movies[e]); }}
+          onRowSelection={this.movieSelect}
         >
           <TableHeader
             displaySelectAll={false}
@@ -78,9 +87,14 @@ class MoviesComponent extends React.Component {
             showRowHover
             stripedRows={false}
           >
-          {this.props.movies && this.props.movies.length > 0
-            ? this.props.movies.map((row, index) => (
-              <TableRow key={index} value={row._id}>
+          {this.props.movies.movies && this.props.movies.movies.length > 0
+            ? this.props.movies.movies.map((row, index) => (
+              <TableRow
+                key={index}
+                value={row._id}
+                selected={this.props.movies.selectedMovie._id
+                  && this.props.movies.selectedMovie._id === row._id}
+              >
                 <TableRowColumn style={{ width: '10%' }}><span>#{row._id}</span></TableRowColumn>
                 <TableRowColumn>
                   <h3>{row.title}</h3>
@@ -92,7 +106,7 @@ class MoviesComponent extends React.Component {
                       ? row.actors.filter(actor => actor && actor.length > 0)
                       .join(', ') : null}</span>
                     <button
-                      onClick={this.props.actions.confirmRemove.bind(this, row._id)}
+                      onClick={this.removeMovie.bind(this, row._id)}
                     >
                       <svg width="12px" height="12px" viewBox="0 0 12 12">
                         <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
@@ -122,6 +136,8 @@ class MoviesComponent extends React.Component {
 
           </TableBody>
         </Table>
+
+
       </section>
     );
   }
@@ -131,7 +147,7 @@ MoviesComponent.displayName = 'MoviesComponent';
 
 // Uncomment properties you need
 MoviesComponent.propTypes = {
-  movies: PropTypes.array.isRequired,
+  movies: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
 };
 // MoviesComponent.defaultProps = {};

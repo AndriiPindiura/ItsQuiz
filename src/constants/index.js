@@ -3,6 +3,7 @@ export const SET_MOVIES = 'SET_MOVIES';
 export const SET_MOVIE = 'SET_MOVIE';
 export const CONFIRM_REMOVE = 'CONFIRM_REMOVE';
 export const CREATE_DIALOG = 'CREATE_DIALOG';
+export const SET_SELECTED_MOVIE = 'SET_SELECTED_MOVIE';
 export const SET_YEARS = 'SET_YEARS';
 export const SET_TITLE = 'SET_TITLE';
 export const SET_TYPE = 'SET_TYPE';
