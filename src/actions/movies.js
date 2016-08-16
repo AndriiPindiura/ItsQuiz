@@ -9,8 +9,18 @@ import {
   SET_TYPE,
   SET_YEAR,
   ADD_ACTOR,
-  FILTER_MOVIES,
+  FILTER_MOVIES_TITLE,
+  FILTER_MOVIES_ACTOR,
+  SET_ERROR,
 } from '../constants';
+
+export function setError(error) {
+  return {
+    type: SET_ERROR,
+    payload: error,
+  };
+}
+
 
 export function setMoviesToStore(movies) {
   return {
@@ -187,14 +197,25 @@ export function addMovie(movie) {
           dispatch(setMovie());
           dispatch(getMovies());
         }
+        else {
+          response.json().then(data => dispatch(setError(data)));
+        }
       })
       .catch(error => { console.log(error); });
   };
 }
 
-export function filterMovies(keyWord) {
+export function filterByTitle(keyWord) {
   return {
-    type: FILTER_MOVIES,
+    type: FILTER_MOVIES_TITLE,
     payload: keyWord,
   };
 }
+
+export function filterByActor(keyWord) {
+  return {
+    type: FILTER_MOVIES_ACTOR,
+    payload: keyWord,
+  };
+}
+

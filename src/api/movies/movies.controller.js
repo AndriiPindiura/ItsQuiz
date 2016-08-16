@@ -20,7 +20,11 @@ export function getMovies(req, res) {
 export function createMovie(req, res) {
   Movie.create(req.body)
     .then(() => res.status(201).end())
-    .catch(error => console.log(error));
+    .catch(error => {
+      // console.log(error);
+      // throw error;
+      res.status(500).json(error);
+    });
 }
 
 export function importMovies(req, res) {

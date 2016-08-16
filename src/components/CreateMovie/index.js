@@ -5,28 +5,8 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 
 class CreateMovieComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.importFileDialog = this.importFileDialog.bind(this);
-    this.setFile = this.props.actions.setFile.bind(this);
-    this.addMovie = this.props.actions.addMovie.bind(this, this.props.movies.movie);
-    this.editFirstActor = this.props.actions.addMovieActor.bind(this, 0);
-    this.editSecondActor = this.props.actions.addMovieActor.bind(this, 1);
-    this.editThirdActor = this.props.actions.addMovieActor.bind(this, 2);
-    this.editFourActor = this.props.actions.addMovieActor.bind(this, 3);
-  }
   componentDidMount() {
     this.props.actions.setYears();
-  }
-  componentWillUpdate() {
-    this.addMovie = this.props.actions.addMovie.bind(this, this.props.movies.movie);
-  }
-  importFileDialog() {
-    this.refs.file.click();
-  }
-  importMovies(input) {
-    this.props.actions.setFile(input);
-    this.refs.file.value = '';
   }
   render() {
     const actions = [
@@ -34,7 +14,7 @@ class CreateMovieComponent extends React.Component {
         type="file"
         ref="file"
         style={{ display: 'none' }}
-        onChange={this.setFile}
+        onChange={e => this.props.actions.setFile(e)}
       />,
       <FlatButton
         label="ИМПОРТ С ФАЙЛА"
@@ -45,7 +25,7 @@ class CreateMovieComponent extends React.Component {
           color: '#3c91f2',
         }}
         // keyboardFocused
-        onTouchTap={this.importFileDialog}
+        onTouchTap={() => this.refs.file.click()}
       />,
       <FlatButton
         label="ОТМЕНА"
@@ -66,7 +46,8 @@ class CreateMovieComponent extends React.Component {
           color: '#3c91f2',
         }}
         primary
-        onTouchTap={this.addMovie}
+        // onTouchTap={this.addMovie}
+        onTouchTap={() => { this.props.actions.addMovie(this.props.movies.movie); }}
       />,
     ];
     return (
@@ -108,19 +89,19 @@ class CreateMovieComponent extends React.Component {
           <div>
             <input
               placeholder="Имя и фамилия актера"
-              onChange={this.editFirstActor}
+              onChange={e => this.props.actions.addMovieActor(0, e)}
             />
             <input
               placeholder="Имя и фамилия актера"
-              onChange={this.editSecondActor}
+              onChange={e => this.props.actions.addMovieActor(1, e)}
             />
             <input
               placeholder="Имя и фамилия актера"
-              onChange={this.editThirdActor}
+              onChange={e => this.props.actions.addMovieActor(2, e)}
             />
             <input
               placeholder="Имя и фамилия актера"
-              onChange={this.editFourActor}
+              onChange={e => this.props.actions.addMovieActor(3, e)}
             />
           </div>
         </section>

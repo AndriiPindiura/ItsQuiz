@@ -1,34 +1,31 @@
 import React, { PropTypes } from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import css from './main.scss';
 
 class MovieInfoComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.closeDialog = this.props.actions.selectMovie.bind(this, null);
-  }
-  // componentWillUpdate() {
-  //   this.removeMovie = this.props.actions.removeMovie.bind(this, this.props.id);
-  // }
-  // removeMovie() {
-  //   this.props.actions.removeMovie(this.props.id);
-  // }
   render() {
     const actions = [
       <FlatButton
         label="Закрыть"
-        onTouchTap={this.closeDialog}
+        onTouchTap={() => this.props.actions.selectMovie(null)}
       />,
     ];
     return (
       <Dialog
+        className={css.movieinfo}
         title={this.props.movie.title}
         actions={actions}
         modal={false}
         open={this.props.movieInfo}
       >
-        <p>{this.props.movie.releaseYear}<span>{this.props.movie.videoType}</span></p>
-        <p>{this.props.movie.actors ? this.props.movie.actors.join(', ') : false}</p>
+        <p><strong>Год: </strong>{this.props.movie.releaseYear}</p>
+        <p>
+          <strong>Актеры: </strong>
+          {this.props.movie.actors ? this.props.movie.actors.join(', ') : false}
+        </p>
+        <p><strong>Формат: </strong>{this.props.movie.videoType}</p>
       </Dialog>
     );
   }
@@ -45,4 +42,4 @@ MovieInfoComponent.propTypes = {
 };
 // ConfirmDeleteComponent.defaultProps = {};
 
-export default MovieInfoComponent;
+export default withStyles(css)(MovieInfoComponent);

@@ -11,24 +11,8 @@ import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowCol
 // require('styles//Movies.css');
 
 class MoviesComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.filterMovies = this.filterMovies.bind(this);
-    this.movieSelect = this.movieSelect.bind(this);
-  }
   componentDidMount() {
     this.props.actions.getMovies();
-  }
-  filterMovies(input) {
-    this.props.actions.filterMovies(input.target.value);
-  }
-  removeMovie(id, e) {
-    e.stopPropagation();
-    // e.nativeEvent.stopImmediatePropagation();
-    this.props.actions.confirmRemove(id);
-  }
-  movieSelect(index) {
-    this.props.actions.selectMovie(this.props.movies.movies[index]);
   }
   render() {
     const addMovieStyle = {
@@ -51,9 +35,14 @@ class MoviesComponent extends React.Component {
             <header>
               <h2>MyMovies</h2>
               <input
-                placeholder="Ищите фильм по названию или актеру"
-                value={this.props.movies.searchKeyWord}
-                onChange={this.filterMovies}
+                placeholder="Ищите фильм по названию"
+                value={this.props.movies.searchByTitle}
+                onChange={e => this.props.actions.filterByTitle(e.target.value)}
+              />
+              <input
+                placeholder="Ищите фильм по актеру"
+                value={this.props.movies.searchByActor}
+                onChange={e => this.props.actions.filterByActor(e.target.value)}
               />
             </header>}
           iconElementRight={
@@ -69,7 +58,7 @@ class MoviesComponent extends React.Component {
         />
         <Table
           wrapperStyle={wrapStyle}
-          onRowSelection={this.movieSelect}
+          onRowSelection={i => this.props.actions.selectMovie(this.props.movies.movies[i])}
         >
           <TableHeader
             displaySelectAll={false}
@@ -106,7 +95,10 @@ class MoviesComponent extends React.Component {
                       ? row.actors.filter(actor => actor && actor.length > 0)
                       .join(', ') : null}</span>
                     <button
-                      onClick={this.removeMovie.bind(this, row._id)}
+                      onClick={e => {
+                        e.stopPropagation();
+                        this.props.actions.confirmRemove(row._id);
+                      }}
                     >
                       <svg width="12px" height="12px" viewBox="0 0 12 12">
                         <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">

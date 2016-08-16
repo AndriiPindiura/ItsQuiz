@@ -19,6 +19,7 @@ import Movies from './Movies';
 import ConfirmDelete from './ConfirmDelete';
 import CreateMovie from './CreateMovie';
 import MovieInfo from './MovieInfo';
+import Error from './Error';
 
 class ItsQuiz extends Component {
   render() {
@@ -37,6 +38,7 @@ class ItsQuiz extends Component {
           movieInfo={this.props.movies.movieInfo}
           movie={this.props.movies.selectedMovie}
         />
+        <Error actions={this.props.moviesActions} error={this.props.movies.error} />
       </div>
     );
   }

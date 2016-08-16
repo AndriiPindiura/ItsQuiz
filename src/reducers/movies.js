@@ -9,7 +9,9 @@ import {
   SET_TYPE,
   SET_YEAR,
   ADD_ACTOR,
-  FILTER_MOVIES,
+  FILTER_MOVIES_TITLE,
+  FILTER_MOVIES_ACTOR,
+  SET_ERROR,
 } from '../constants';
 
 const initialState = {
@@ -20,6 +22,7 @@ const initialState = {
   movieInfo: false,
   years: [],
   movie: {},
+  error: {},
   selectedMovie: {},
   videoTypes: ['DVD', 'VHS', 'Blu-Ray'],
 };
@@ -34,11 +37,14 @@ export default function runtime(state = initialState, action) {
         createMovieDialog: false,
         movieInfo: false,
         movie: {},
+        error: {},
       });
     }
     case SET_MOVIES: {
       const movies = [...action.payload]
-        .sort((a, b) => a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1);
+        .sort((a, b) => a.title && b.title
+        ? a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1
+        : 0);
       return Object.assign({}, state, { movies, rawMovies: movies });
     }
     case SET_SELECTED_MOVIE: {
@@ -78,16 +84,37 @@ export default function runtime(state = initialState, action) {
     case ADD_ACTOR: {
       const actors = state.movie.actors ? [...state.movie.actors] : [];
       actors[parseInt(action.payload.id, 10)] = action.payload.title;
+      const cleanActor = [];
+      actors.forEach(actor => {
+        if (actor && actor.trim().length > 0) {
+          cleanActor.push(actor);
+        }
+      });
       return Object.assign({}, state, {
-        movie: Object.assign({}, state.movie, { actors }),
+        movie: Object.assign({}, state.movie, { actors: cleanActor }),
       });
     }
-    case FILTER_MOVIES: {
+    case FILTER_MOVIES_TITLE: {
       const movies = [...state.rawMovies]
-        .filter(movie => movie.title.toLowerCase().includes(action.payload.toLowerCase())
-        || movie.actors
+        .filter(movie => movie.title.toLowerCase().includes(action.payload.toLowerCase()));
+      return Object.assign({}, state, {
+        movies,
+        searchByTitle: action.payload,
+        searchByActor: '',
+      });
+    }
+    case FILTER_MOVIES_ACTOR: {
+      const movies = [...state.rawMovies]
+        .filter(movie => movie.actors
           .filter(actor => actor.toLowerCase().includes(action.payload.toLowerCase())).length > 0);
-      return Object.assign({}, state, { movies, searchKeyWord: action.payload });
+      return Object.assign({}, state, {
+        movies,
+        searchByActor: action.payload,
+        searchByTitle: '',
+      });
+    }
+    case SET_ERROR: {
+      return Object.assign({}, state, { error: action.payload });
     }
     default:
       return state;

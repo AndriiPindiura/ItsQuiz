@@ -3,16 +3,6 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 
 class ConfirmDeleteComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.removeMovie = this.removeMovie.bind(this);
-  }
-  // componentWillUpdate() {
-  //   this.removeMovie = this.props.actions.removeMovie.bind(this, this.props.id);
-  // }
-  removeMovie() {
-    this.props.actions.removeMovie(this.props.id);
-  }
   render() {
     const actions = [
       <FlatButton
@@ -22,7 +12,7 @@ class ConfirmDeleteComponent extends React.Component {
       <FlatButton
         label="Удалить"
         primary
-        onTouchTap={this.removeMovie}
+        onTouchTap={() => this.props.actions.removeMovie(this.props.id)}
       />,
     ];
     return (
