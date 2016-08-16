@@ -8,6 +8,8 @@
   <li><a href="http://localhost:3001/">use</a></li>
 </ol>
 
+Project based on <a href="https://github.com/kriasoft/react-starter-kit">React Starter Kit</a>
+
 ```
 .
 ├── /build/                     # The folder for compiled output
