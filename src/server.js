@@ -32,12 +32,12 @@ import createHistory from './core/createHistory';
 import assets from './assets'; // eslint-disable-line import/no-unresolved
 import configureStore from './store/configureStore';
 import { setRuntimeVariable } from './actions/runtime';
-import { port, auth } from './config';
+import { port, mongo } from './config';
 import movies from './api/movies';
 
 const app = express();
 
-mongoose.connect('mongodb://localhost/itsquiz', { db: { safe: true } });
+mongoose.connect(mongo.uri, { db: { safe: true } });
 mongoose.connection.on('error', (e) => {
   console.log(e);
 });
