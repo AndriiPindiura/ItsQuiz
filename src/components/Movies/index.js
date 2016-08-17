@@ -36,12 +36,12 @@ class MoviesComponent extends React.Component {
               <h2>MyMovies</h2>
               <input
                 placeholder="Ищите фильм по названию"
-                value={this.props.movies.searchByTitle}
+                // value={this.props.movies.searchByTitle}
                 onChange={e => this.props.actions.filterByTitle(e.target.value)}
               />
               <input
                 placeholder="Ищите фильм по актеру"
-                value={this.props.movies.searchByActor}
+                // value={this.props.movies.searchByActor}
                 onChange={e => this.props.actions.filterByActor(e.target.value)}
               />
             </header>}
